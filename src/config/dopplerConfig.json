@@ -1,8 +1,8 @@
 {
   "liga" : "https://api.dopplerrelay.com",
-  "correo": "mmorales@impulse-telecom.com",
-  "pass": "GtTi5VSuCrY9QmDH5RSL",
-  "apikey": "anpja1yf6nvrimrxb8vw",
-  "accountId": 62,
-  "accountName": "impulse-telecom"
+  "correo": "YOUR MAIL",
+  "pass": "YOUR PASS",
+  "apikey": "YOUR APIKEY",
+  "accountId": "YOUR ACOUNTID",
+  "accountName": "YOUR ACOUNNAME"
 }
