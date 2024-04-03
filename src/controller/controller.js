@@ -1,91 +1,62 @@
-const { default: axios } = require('axios');
-const dopplerData = require('../config/dopplerConfig.json')
-
+const { default: axios } = require("axios");
+const dopplerData = require("../config/dopplerConfig.json");
+const path = require("path");
+const fs = require("fs");
 
 const home = {
   testApi: (req, res) => {
-    console.log('peticion test exitosa');
-    res.json({ rspta: 'peticion test exitosa' })
+    console.log("peticion test exitosa");
+    res.json({ rspta: "peticion test exitosa" });
   },
 
   testCredenciales: async (req, res) => {
     try {
-      const rspta = await axios.get(dopplerData.liga)
+      const rspta = await axios.get(dopplerData.liga);
       console.log(rspta);
-      res.json(rspta.status)
+      res.json(rspta.status);
     } catch (error) {
-      console.log('Error --', error);
-      res.send(error)
+      console.log("Error --", error);
+      res.send(error);
     }
   },
   testEmailSend: async (req, res) => {
+    // Funcion para encriptar imagen y enviar por correo en base64
+    // function imageToBase64(imagePath) {
+    //   const imageData = fs.readFileSync(imagePath);
+    //   return imageData.toString('base64');
+    // }
     try {
-      const liga = `${dopplerData.liga}/accounts/${dopplerData.accountId}/messages`
-      const htmlData = `
-      <h2 style="color: red;">Correo enviado desde nodejs</h2>
+      const htmlPath = path.join(__dirname, "../public/html/layout.html");
+      let htmlContent = undefined;
+      try {
 
-      <img src="./src/public/img/dasa.png"> </img>
-    `
+        dopplerData.config.html = fs.readFileSync(htmlPath, "utf-8");
+        dopplerData.config.subject = 'Asunto del mensaje';
+        dopplerData.config.recipients[0].email = 'correoDestinatario@prueba.com'
+        dopplerData.config.recipients[0].name = 'nombre destinatario'
 
-      const emailData = {
-        from_name: 'Impulse',
-        from_email: 'reportes@impulse-telecom.com',
-        messageId: '1',
-        subject: 'Correo desde nodejs',
-        text: 'hola mundo',
-        html: `${htmlData}`,
-        headers: [
+        const response = await axios.post(
+          dopplerData.endPointSendMail,
+          dopplerData.config,
           {
-            key: 'string',
-            value: 'string'
+            params: { api_key: dopplerData.apikey },
+            headers: { "Content-Type": "application/json" },
           }
-        ],
-        deliveryGuids: [
-          'string'
-        ],
+        );
+        console.log('Rspta Doppler ---- ', response.status);
 
-        reply_to: {
-          email: 'danieluaeh@gmail.com',
-          name: 'daniel'
-        },
-        recipients: [
-          {
-            email: 'dtrejo@impulse-telecom.com',
-            name: 'Daniel 2',
-            type: 'to'
-          }
-        ],
-        skip_track_opens: true,
-        skip_track_clicks: true,
-        metadata: [
-          {
-            key: 'string',
-            value: 'string'
-          }
-        ],
-        sendingIPAddresses: [
-          'string'
-        ],
-        priority: 'string'
-      };
+        res.json({ rspta: response.status });
 
-      const response = await axios.post(liga, emailData, {
-        params: { api_key: data.apikey },
-        headers: { 'Content-Type': 'application/json' }
-      })
-      console.log(response.status);
-      res.json({ rspta: response.status })
 
+      } catch (error) {
+        console.log();
+        res.send("Error al leer archivo", error);
+      }
     } catch (error) {
       console.log(error);
-      res.send(error)
+      res.send(error);
     }
+  },
+};
 
-
-  }
-
-
-}
-
-
-module.exports = { home }
+module.exports = { home };

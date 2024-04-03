@@ -1,8 +1,46 @@
 {
-  "liga" : "https://api.dopplerrelay.com",
-  "correo": "YOUR MAIL",
-  "pass": "YOUR PASS",
-  "apikey": "YOUR APIKEY",
-  "accountId": "YOUR ACOUNTID",
-  "accountName": "YOUR ACOUNNAME"
+  "liga" : "**************************",
+  "correo": "*************************",
+  "pass": "************************",
+  "apikey": "*********",
+  "accountId": "**",
+  "accountName": "**************",
+
+
+  "endPointSendMail" : "https://api.dopplerrelay.com/accounts/62/messages",
+
+
+  "config" : {
+    "from_name": "Tu empresa",
+    "from_email": "correo asociado a tu cuenta de doppler",
+    "messageId": "1",
+    "subject": "",
+    "text": "",
+    "html": "",
+    "headers": [
+      {
+        "key": "string",
+        "value": "string"
+      }
+    ],
+    "deliveryGuids": ["string"],
+    "recipients": [
+      {
+        "email": "",
+        "name": "",
+        "type": "to"
+      }
+    ],
+    "skip_track_opens": true,
+    "skip_track_clicks": true,
+    "metadata": [
+      {
+        "key": "string",
+        "value": "string"
+      }
+    ],
+    "sendingIPAddresses": ["string"],
+    "priority": "string"
+  }
+  
 }

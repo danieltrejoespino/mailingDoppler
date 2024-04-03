@@ -8,6 +8,7 @@ router.get('/testApi',home.testApi)
 
 router.get('/testCredenciales',home.testCredenciales)
 
+router.get('/testEmail',home.testEmailSend)
 
 
 
